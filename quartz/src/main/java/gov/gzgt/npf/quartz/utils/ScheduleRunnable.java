@@ -16,7 +16,7 @@ public class ScheduleRunnable implements Runnable {
 		
 	private String params;
 	
-	public ScheduleRunnable(String beanName, String methodName, String params) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException {
+	public ScheduleRunnable(String beanName, String methodName, String params){
 		try {
 			this.target = Class.forName(beanName).newInstance();
 			this.params = params;
@@ -25,8 +25,8 @@ public class ScheduleRunnable implements Runnable {
 			}else{
 				this.method = target.getClass().getDeclaredMethod(methodName);
 			}
-		} catch (ClassNotFoundException e) {
-			logger.debug("找不到映射的类："+beanName);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
 		} 
 	}
 
